@@ -11,6 +11,12 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.neural_network import MLPClassifier
 
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import StackingClassifier
+from sklearn.datasets import make_classification
+
+
 # 读取预处理后的数据
 file_path = "preprocessed_data_fixed.csv"
 print("Loading data...")
@@ -57,6 +63,13 @@ models = {
 )
 
 }
+
+# try hybrid models
+base_models = [('lr', models['Logistic Regression']), ('random forest', models['Random Forest'])]
+meta_model = models['Logistic Regression']
+stacking_model = StackingClassifier(estimators=base_models, final_estimator=meta_model)
+models['Stacking Model'] = stacking_model
+
 
 # 训练并评估模型
 results = []
