@@ -68,7 +68,7 @@ meta_model = models['Logistic Regression']
 stacking_model = StackingClassifier(estimators=base_models, final_estimator=meta_model)
 models['Stacking Model'] = stacking_model
 # try voting classifier
-VotingClassifier(estimators=base_models, voting='soft')
+models['Voting Classifier'] = VotingClassifier(estimators=base_models, voting='soft')
 
 
 # 训练并评估模型
