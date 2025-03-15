@@ -11,10 +11,8 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.neural_network import MLPClassifier
 
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import StackingClassifier
-from sklearn.datasets import make_classification
+from sklearn.ensemble import VotingClassifier
 
 
 # 读取预处理后的数据
@@ -69,6 +67,8 @@ base_models = [('lr', models['Logistic Regression']), ('random forest', models['
 meta_model = models['Logistic Regression']
 stacking_model = StackingClassifier(estimators=base_models, final_estimator=meta_model)
 models['Stacking Model'] = stacking_model
+# try voting classifier
+VotingClassifier(estimators=base_models, voting='soft')
 
 
 # 训练并评估模型
